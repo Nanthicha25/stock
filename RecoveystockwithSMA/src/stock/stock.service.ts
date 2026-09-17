@@ -175,6 +175,7 @@ export class StockService {
         const period = 50;
         let smaRecord = await queryRunner.manager.findOne(SmaRecord, {
           where: { symbol, period },
+          order: { calculatedAt: 'DESC' },
         });
 
         if (!smaRecord) {
@@ -183,6 +184,7 @@ export class StockService {
 
             smaRecord = await queryRunner.manager.findOne(SmaRecord, {
               where: { symbol, period },
+              order: { calculatedAt: 'DESC' },
             });
           } catch (error) {
             console.error(`ไม่สามารถคำนวณ SMA สำหรับ ${symbol} ได้:`, error);
